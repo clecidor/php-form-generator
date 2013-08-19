@@ -23,12 +23,12 @@ $textarea->id = $label->for = 'body-field';
 $textarea->prefix = $label;
 
 // Add two fields to <form>
-// Element::__toString() magic-method turns "$input $textarea" into XML =)
+// Element::__toString() turns "$input $textarea" objects into XML string.
 $form = new Element('form', "$input $textarea", array('enctype' => "multipart/form-data"));
 $form->method = 'post';
 unset($form->enctype); // didn't need it
 
-print $form; // Element::__toString() magic-method turns $form into XML =)
+print $form; // Element::__toString() turns $form object into XML string.
 
 // Could also do within function(){}
 return (string) $form;
