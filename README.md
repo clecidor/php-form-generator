@@ -1,4 +1,4 @@
-ShortElement PHP form-generator
+ShortE PHP form-generator
 ===============================
 
 A PHP stdClass oriented-way of creating HTML/XML (especially forms). 
