@@ -5,7 +5,7 @@ A PHP stdClass oriented-way of creating HTML/XML (especially forms).
 Each attribute added to object will appear as attribute in rendered XML tag.
 
 
-## Example 1: 
+## Example: 
 ```php
 // Add title text-field
 $attributes = array('class' => 'pretty-form');
@@ -35,7 +35,7 @@ return (string) $form;
 ```
 
 
-## Example 2:
+## Another Example:
 ```php
 $textfields = array(
   'name' => 'Name',
@@ -49,8 +49,9 @@ $inputs = array();
 $attributes = array('class' => 'textfields');
 
 foreach($textfields as $id => $label) {
-  $inputs[$id] = new InputElement('text', new Element('label', $label, array('for' => $id)), $attributes);
+  $inputs[$id] = new InputElement('text', '', $attributes);
   $inputs[$id]->id = $id;
+  $inputs[$id]->prefix = new Element('label', $label, array('for' => $id));
 }
 
 print new Element('form', implode("\n", $inputs));
