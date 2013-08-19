@@ -6,7 +6,7 @@ Each attribute added to object will appear as attribute in rendered XML tag.
 
 
 ## Example 1: 
-
+```php
 // Add title text-field
 $attributes = array('class' => 'pretty-form');
 $label = new Element('label', 'Title');
@@ -32,11 +32,11 @@ print $form; // Element::__toString() magic-method turns $form into XML =)
 
 // Could also do within function(){}
 return (string) $form;
-
+```
 
 
 ## Example 2:
-
+```php
 $textfields = array(
   'name' => 'Name',
   'email' => 'Email',
@@ -54,3 +54,4 @@ foreach($textfields as $id => $label) {
 }
 
 print new Element('form', implode("\n", $inputs));
+```
