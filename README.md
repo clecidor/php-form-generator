@@ -5,7 +5,36 @@ A PHP stdClass oriented-way of creating HTML/XML (especially forms).
 Each attribute added to object will appear as attribute in rendered XML tag.
 
 
-## Example 1: 
+## Example 1:
+```php
+$attributes = array('class' => 'random honey bun');
+
+$textfields = array(
+  'name' => array('Name', 'text', $attributes),
+  'email' => array('Email', 'email', $attributes),
+  'email-conf' => array('Email Again', 'email', array('required' => 'true')),
+  'pass' => array('Password', 'password'),
+  'pass-conf' => array('Password Again', 'password'),
+  'user_id' => array('123', 'hidden'),
+);
+
+$form = InputElement::form($textfields); // Can also do InputElement::batch($textfields) for raw input objects
+$form->action = '/process-form.php';
+print $form;
+```
+
+## Example 1 output:
+```html
+<form action="/process-form.php" method="post" ><label for="name" >Name</label>
+<input class="random honey bun" id="name" name="text-name" type="text" /><label for="email" >Email</label>
+<input class="random honey bun" id="email" name="email-email" type="email" /><label for="email-conf" >Email Again</label>
+<input id="email-conf" name="email-email-conf" required="true" type="email" /><label for="pass" >Password</label>
+<input id="pass" name="password-pass" type="password" /><label for="pass-conf" >Password Again</label>
+<input id="pass-conf" name="password-pass-conf" type="password" /><input id="user_id" name="hidden-user_id" type="hidden" value="123" /></form>
+```
+
+
+## Example 2: 
 ```php
 // Add title text-field
 $attributes = array('class' => 'pretty-form');
@@ -34,7 +63,7 @@ print $form; // Element::__toString() turns $form object into XML string.
 return (string) $form;
 ```
 
-## Example 1 output:
+## Example 2 output:
 ```html
 <form method="post" id="simple-form" ><label for="title-field" >Title</label>
 <input class="pretty-form" type="text" id="title-field" />
@@ -45,7 +74,7 @@ return (string) $form;
 
 
 
-## Example 2:
+## Example 3:
 ```php
 $textfields = array(
   'name' => 'Name',
@@ -67,7 +96,7 @@ foreach($textfields as $element_id => $label_text) {
 print new Element('form', implode("\n", $inputs));
 ```
 
-## Example 2 output:
+## Example 3 output:
 ```html
 <form method="post" ><label for="name" >Name</label>
 <input class="textfields" type="text" id="name" />
