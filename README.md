@@ -9,7 +9,7 @@ Each attribute added to object will appear as attribute in rendered XML tag.
 ```php
 $attributes = array('class' => 'random honey bun');
 
-$textfields = array(
+$elements = array(
   'name' => array('Name', 'text', $attributes),
   'email' => array('Email', 'email', $attributes),
   'email-conf' => array('Email Again', 'email', array('required' => 'true')),
@@ -18,7 +18,7 @@ $textfields = array(
   'user_id' => array('123', 'hidden'),
 );
 
-$form = InputElement::form($textfields); // Can also do InputElement::batch($textfields) for raw input objects
+$form = InputElement::form($elements); // Can also do InputElement::batch($elements) for raw input objects
 $form->action = '/process-form.php';
 print $form;
 ```
