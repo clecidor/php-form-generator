@@ -34,7 +34,44 @@ print $form;
 ```
 
 
-## Example 2: 
+## Example 2:
+```php
+$textfields = array(
+  'name' => 'Name',
+  'email' => 'Email',
+  'email-conf' => 'Email Again',
+  'pass' => 'Password',
+  'pass-conf' => 'Password Again',
+);
+
+$inputs = array();
+$attributes = array('class' => 'textfields');
+
+foreach($textfields as $element_id => $label_text) {
+  $inputs[$element_id] = new InputElement('text', '', $attributes);
+  $inputs[$element_id]->id = $element_id;
+  $inputs[$element_id]->prefix = new Element('label', $label_text, array('for' => $element_id));
+}
+
+print new Element('form', implode("\n", $inputs));
+```
+
+## Example 2 output:
+```html
+<form><label for="name" >Name</label>
+<input class="textfields" id="name" type="text" />
+<label for="email" >Email</label>
+<input class="textfields" id="email" type="text" />
+<label for="email-conf" >Email Again</label>
+<input class="textfields" id="email-conf" type="text" />
+<label for="pass" >Password</label>
+<input class="textfields" id="pass" type="text" />
+<label for="pass-conf" >Password Again</label>
+<input class="textfields" id="pass-conf" type="text" /></form>
+```
+
+
+## Example 3: 
 ```php
 // Add title text-field
 $attributes = array('class' => 'pretty-form');
@@ -63,49 +100,10 @@ print $form; // Element::__toString() turns $form object into XML string.
 return (string) $form;
 ```
 
-## Example 2 output:
-```html
-<form method="post" id="simple-form" ><label for="title-field" >Title</label>
-<input class="pretty-form" type="text" id="title-field" />
-<label for="body-field" >Body Field</label>
-<textarea class="pretty-form" id="body-field" >Default text goes here...</textarea>
-</form>
-```
-
-
-
-## Example 3:
-```php
-$textfields = array(
-  'name' => 'Name',
-  'email' => 'Email',
-  'email-conf' => 'Email Again',
-  'pass' => 'Password',
-  'pass-conf' => 'Password Again',
-);
-
-$inputs = array();
-$attributes = array('class' => 'textfields');
-
-foreach($textfields as $element_id => $label_text) {
-  $inputs[$element_id] = new InputElement('text', '', $attributes);
-  $inputs[$element_id]->id = $element_id;
-  $inputs[$element_id]->prefix = new Element('label', $label_text, array('for' => $element_id));
-}
-
-print new Element('form', implode("\n", $inputs));
-```
-
 ## Example 3 output:
 ```html
-<form method="post" ><label for="name" >Name</label>
-<input class="textfields" type="text" id="name" />
-<label for="email" >Email</label>
-<input class="textfields" type="text" id="email" />
-<label for="email-conf" >Email Again</label>
-<input class="textfields" type="text" id="email-conf" />
-<label for="pass" >Password</label>
-<input class="textfields" type="text" id="pass" />
-<label for="pass-conf" >Password Again</label>
-<input class="textfields" type="text" id="pass-conf" /></form>
+<form method="post" ><label for="body-field" >Body Field</label>
+<input class="pretty-form" id="title-field" type="text" /> <label for="body-field" >Body Field</label>
+<textarea class="pretty-form" id="body-field" >Default text goes here...</textarea></form>
+</form>
 ```
