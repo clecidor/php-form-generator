@@ -135,14 +135,16 @@ class InputElement extends ShortElement {
     $elements = array();
     
     foreach($inputs as $element_id => $input) {
-      $label_text = (string) array_shift($input);
       $type = (string) array_shift($input);
+      $label_text = (string) array_shift($input);
       $attributes = (array) array_shift($input);
       
       $label = new Element('label', $label_text, array('for' => $element_id));
       $input = new InputElement($type, '', (array) $attributes);
       $label->for = $input->id = $element_id;
-      $input->name = "$type-$element_id";
+      
+      $input->name = "{$type}-{$element_id}";
+      
       ($type == 'hidden') ? ($input->value = $label_text) : ($input->prefix = $label);
       
       $elements[$element_id] = $input;

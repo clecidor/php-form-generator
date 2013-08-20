@@ -10,12 +10,12 @@ Each attribute added to object will appear as attribute in rendered XML tag.
 $attributes = array('class' => 'random honey bun');
 
 $elements = array(
-  'name' => array('Name', 'text', $attributes),
-  'email' => array('Email', 'email', $attributes),
-  'email-conf' => array('Email Again', 'email', array('value' => 'john@doe.com')),
-  'pass' => array('Password', 'password'),
-  'pass-conf' => array('Password Again', 'password'),
-  'user_id' => array('123', 'hidden'),
+  'name' => array('text', 'Name', $attributes),
+  'email' => array('email', 'Email', $attributes),
+  'email-conf' => array('email', 'Email Again', array('value' => 'john@doe.com')),
+  'pass' => array('password', 'Password'),
+  'pass-conf' => array('password', 'Password Again'),
+  'user_id' => array('hidden', '123'),
 );
 
 $form = InputElement::form($elements); // Can also do InputElement::batch($elements) for raw input objects
