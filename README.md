@@ -58,10 +58,10 @@ $textfields = array(
 $inputs = array();
 $attributes = array('class' => 'textfields');
 
-foreach($textfields as $id => $label) {
-  $inputs[$id] = new InputElement('text', '', $attributes);
-  $inputs[$id]->id = $id;
-  $inputs[$id]->prefix = new Element('label', $label, array('for' => $id));
+foreach($textfields as $element_id => $label_text) {
+  $inputs[$element_id] = new InputElement('text', '', $attributes);
+  $inputs[$element_id]->id = $element_id;
+  $inputs[$element_id]->prefix = new Element('label', $label_text, array('for' => $element_id));
 }
 
 print new Element('form', implode("\n", $inputs));
