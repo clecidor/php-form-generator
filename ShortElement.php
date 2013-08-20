@@ -107,7 +107,7 @@ class Element extends stdClass implements IElement {
 /**
  * @class ShortElement
  *
- * ShortElement is an element without closing-tag.
+ * ShortElement is an element without closing-tag (i.e. <img /> <input /> <br /> etc).
  * Can still use ShortElement::render($closingTag = TRUE) as a remedy.
  */
 class ShortElement extends Element {
