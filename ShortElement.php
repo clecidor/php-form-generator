@@ -135,8 +135,8 @@ class InputElement extends ShortElement {
     $elements = array();
     
     foreach($inputs as $element_id => $input) {
-      $label_text = array_shift($input);
-      $type = array_shift($input);
+      $label_text = (string) array_shift($input);
+      $type = (string) array_shift($input);
       $attributes = (array) array_shift($input);
       
       $label = new Element('label', $label_text, array('for' => $element_id));
