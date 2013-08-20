@@ -67,6 +67,7 @@ class Element extends stdClass implements IElement {
   
   final public function attributes($stringify = FALSE) {
     $attributes = get_object_vars($this);
+    ksort($attributes); // alphabetical order
     
     unset($attributes['tag'], $attributes['inner'], $attributes['prefix'], $attributes['suffix']);
     
