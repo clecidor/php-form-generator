@@ -12,7 +12,7 @@ $attributes = array('class' => 'random honey bun');
 $elements = array(
   'name' => array('Name', 'text', $attributes),
   'email' => array('Email', 'email', $attributes),
-  'email-conf' => array('Email Again', 'email', array('required' => 'true')),
+  'email-conf' => array('Email Again', 'email', array('value' => 'john@doe.com')),
   'pass' => array('Password', 'password'),
   'pass-conf' => array('Password Again', 'password'),
   'user_id' => array('123', 'hidden'),
@@ -28,7 +28,7 @@ print $form;
 <form action="/process-form.php" method="post" ><label for="name" >Name</label>
 <input class="random honey bun" id="name" name="text-name" type="text" /><label for="email" >Email</label>
 <input class="random honey bun" id="email" name="email-email" type="email" /><label for="email-conf" >Email Again</label>
-<input id="email-conf" name="email-email-conf" required="true" type="email" /><label for="pass" >Password</label>
+<input id="email-conf" name="email-email-conf" type="email" value="john@doe.com" /><label for="pass" >Password</label>
 <input id="pass" name="password-pass" type="password" /><label for="pass-conf" >Password Again</label>
 <input id="pass-conf" name="password-pass-conf" type="password" /><input id="user_id" name="hidden-user_id" type="hidden" value="123" /></form>
 ```
