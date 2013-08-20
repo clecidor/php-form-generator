@@ -5,7 +5,7 @@ A PHP stdClass oriented-way of creating HTML/XML (especially forms).
 Each attribute added to object will appear as attribute in rendered XML tag.
 
 
-## Example: 
+## Example 1: 
 ```php
 // Add title text-field
 $attributes = array('class' => 'pretty-form');
@@ -34,8 +34,18 @@ print $form; // Element::__toString() turns $form object into XML string.
 return (string) $form;
 ```
 
+## Example 1 output:
+```html
+<form method="post" id="simple-form" ><label for="title-field" >Title</label>
+<input class="pretty-form" type="text" id="title-field" />
+<label for="body-field" >Body Field</label>
+<textarea class="pretty-form" id="body-field" >Default text goes here...</textarea>
+</form>
+```
 
-## Another Example:
+
+
+## Example 2:
 ```php
 $textfields = array(
   'name' => 'Name',
@@ -48,11 +58,25 @@ $textfields = array(
 $inputs = array();
 $attributes = array('class' => 'textfields');
 
-foreach($textfields as $id => $label) {
-  $inputs[$id] = new InputElement('text', '', $attributes);
-  $inputs[$id]->id = $id;
-  $inputs[$id]->prefix = new Element('label', $label, array('for' => $id));
+foreach($textfields as $element_id => $label_text) {
+  $inputs[$element_id] = new InputElement('text', '', $attributes);
+  $inputs[$element_id]->id = $element_id;
+  $inputs[$element_id]->prefix = new Element('label', $label_text, array('for' => $element_id));
 }
 
 print new Element('form', implode("\n", $inputs));
+```
+
+## Example 2 output:
+```html
+<form method="post" ><label for="name" >Name</label>
+<input class="textfields" type="text" id="name" />
+<label for="email" >Email</label>
+<input class="textfields" type="text" id="email" />
+<label for="email-conf" >Email Again</label>
+<input class="textfields" type="text" id="email-conf" />
+<label for="pass" >Password</label>
+<input class="textfields" type="text" id="pass" />
+<label for="pass-conf" >Password Again</label>
+<input class="textfields" type="text" id="pass-conf" /></form>
 ```
