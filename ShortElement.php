@@ -93,7 +93,8 @@ class Element extends stdClass implements IElement {
     
     if (!empty($attributes)) $attributes = " $attributes "; // pad with spaces...
     
-    $xml = trim(sprintf($format, (string) $this->tag(), $attributes, (string) $this->inner));
+    $innerContents = isset($this->inner) ? $this->inner : '';
+    $xml = trim(sprintf($format, (string) $this->tag(), $attributes, (string) $innerContents));
     
     $prefix = isset($this->prefix) ? "{$this->prefix}\n" : '';
     $suffix = isset($this->suffix) ? "\n{$this->suffix}" : '';
