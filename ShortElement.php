@@ -129,4 +129,39 @@ class InputElement extends ShortElement {
     $attributes['type'] = $type;
     parent::__construct('input', $innerContents, $attributes);
   }
+  
+  public static function batch(array $inputs) {
+    $elements = array();
+    
+    foreach($inputs as $element_id => $input) {
+      $label_text = array_shift($input);
+      $type = array_shift($input);
+      $attributes = (array) array_shift($input);
+      
+      $label = new Element('label', $label_text, array('for' => $element_id));
+      $input = new InputElement($type, '', (array) $attributes);
+      $label->for = $input->id = $element_id;
+      $input->name = "$type-$element_id";
+      ($type == 'hidden') ? ($input->value = $label_text) : ($input->prefix = $label);
+      
+      $elements[$element_id] = $input;
+    }
+    
+    return $elements;
+  }
+  
+  public static function form(array $inputs) {
+    $form = new Element('form', '', array('method' => 'post'));
+    
+    $elements = static::batch($inputs);
+    
+    while($element = array_shift($elements)) {
+      if('file' == strtolower($element->type)) {
+        $form->enctype = 'multipart/form-data';
+      }
+      $form->inner .= (string) $element;
+    }
+    
+    return $form;
+  }
 }
