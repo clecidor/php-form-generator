@@ -50,10 +50,17 @@ class Element extends stdClass implements IElement {
   public function __construct($tag, $innerContents = '', array $attributes = array()) {
     $this->tag = (string) $tag;
     
-    $this->inner = (string) $innerContents;
+    $this->inner = ($innerContents instanceof Element) ? $innerContents : trim((string) $innerContents);
     
     foreach($attributes as $key => $value) {
-      $this->{$key} = (string) $value;
+      $clean_key = str_ireplace(' ', '', strtolower($key));
+      
+      if (in_array($clean_key, array('prefix', 'suffix'))) {
+        $this->{$clean_key} = ($value instanceof Element) ? $value : trim((string) $value);
+      }
+      else {
+        $this->{$key} = trim((string) $value);
+      }
     }
   }
   
@@ -69,12 +76,14 @@ class Element extends stdClass implements IElement {
     $attributes = get_object_vars($this);
     ksort($attributes); // alphabetical order
     
-    unset($attributes['tag'], $attributes['inner'], $attributes['prefix'], $attributes['suffix']);
+    $reserved_keys = array('tag', 'inner', 'prefix', 'suffix');
     
     if ($stringify) {
       $toSting = array();
       foreach($attributes as $key => $value) {
-        $toSting[] = sprintf('%s="%s"', $key, (string) $value);
+        if (!in_array(strtolower(trim($key)), $reserved_keys)) {
+          $toSting[] = sprintf('%s="%s"', $key, (string) $value);
+        }
       }
       
       return implode(' ', $toSting);
@@ -94,13 +103,20 @@ class Element extends stdClass implements IElement {
     
     if (!empty($attributes)) $attributes = " $attributes "; // pad with spaces...
     
+    foreach(array('prefix', 'inner', 'suffix') as $reserved_key) {
+      if (isset($this->{$reserved_key}) && ($this->{$reserved_key} instanceof Element)) {
+        $element =& $this->{$reserved_key};
+        $element->render();
+      }
+    }
+    
     $innerContents = isset($this->inner) ? $this->inner : '';
     $xml = trim(sprintf($format, (string) $this->tag(), $attributes, (string) $innerContents));
     
     $prefix = isset($this->prefix) ? "{$this->prefix}\n" : '';
     $suffix = isset($this->suffix) ? "\n{$this->suffix}" : '';
     
-    return sprintf("%s%s%s", (string) $prefix, $xml, (string) $suffix);
+    return sprintf("%s%s%s", (string) $prefix, (string) $xml, (string) $suffix);
   }
 }
 
